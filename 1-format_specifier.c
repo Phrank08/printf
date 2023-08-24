@@ -3,9 +3,10 @@
 #include <stdarg.h>
 
 /**
- * main - entry point of the program.
- * description - Handling the following format specifier 'd' and 'i'
- * Author - Eneh Franklyn Okechukwu
+ * format_specifier - Handle basic conversion specifiers.
+ * @format: The format string.
+ * @...: Additional arguments based on format.
+ *
  * Return: Numbers of characters printed.
  */
 
