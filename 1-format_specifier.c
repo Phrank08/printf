@@ -6,33 +6,43 @@
  * main - entry point of the program.
  * description - Handling the following format specifier 'd' and 'i'
  * Author - Eneh Franklyn Okechukwu
- * Return: Always 0 (Success)
+ * Return: Numbers of characters printed.
  */
 
-int main(void)
+int format_specifier(const char *format, ...)
 {
-	void format_specifier(const char *format, ...)
+	int chars_printed = 0;
+	int i = 0;
+	va_list args;
+	va_start(args, format);
+
+	for (i = 0; format[i]; i++)
 	{
-		va_list args;
-		va_start(args, format);
-
-		for (int i = 0; format[i] != '\0'; i++)
+		if (format[i] == '%' && format[i +1])
 		{
-			if (format[i] == '%' && format[++i] != '\0')
-			{
-				if (format[i] == 'd' || format[i] == 'i')
-					printf("%d", va_arg(args, int));
-				else
-					putchar ('%'), putchar(format[i]);
-			}
+			if (format[i + 1] == 'd' || format[i + 1] == 'i')
+				chars_printed += printf("%d", va_arg(args, int));
 			else
-				putchar(format[i]);
+			{
+				putchar('%');
+				chars_printed++;
+			}
+			i++;
 		}
-
-		va_end(args);
+		else
+		{
+			putchar(format[i]);
+			chars_printed++;
+		}
 	}
-	
-	printf("Number %d and %i are integers", 42, 123);
+
+	va_end(args);
+	return chars_printed;
+}
+
+	int main(void)
+{
+		printf("Number %d and %i are integers", 42, 65);
 
 	return (0);
 }
